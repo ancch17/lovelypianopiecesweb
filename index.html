@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lovely Piano Pieces — Original piano music</title>
+  <meta name="description" content="Original piano pieces. Listen on YouTube, buy the sheet music to play at home." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="brand">Lovely Piano Pieces</a>
+      <nav class="nav">
+        <a href="#catalog">Catalog</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener" class="nav-youtube">YouTube</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Original piano pieces,<br />written to be played.</h1>
+      <p class="hero-sub">Listen on YouTube. Buy the sheet music to play at home.</p>
+    </div>
+  </section>
+
+  <section id="catalog" class="catalog">
+    <div class="container">
+      <div class="catalog-header">
+        <h2>Catalog</h2>
+        <div class="filters">
+          <label>
+            <span class="filter-label">Mood</span>
+            <select id="filter-mood">
+              <option value="all">All moods</option>
+            </select>
+          </label>
+          <label>
+            <span class="filter-label">Level</span>
+            <select id="filter-level">
+              <option value="all">All levels</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div id="pieces-grid" class="pieces-grid">
+        <!-- pieces injected by app.js -->
+      </div>
+
+      <p id="empty-state" class="empty-state" hidden>No pieces match those filters yet.</p>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container about-inner">
+      <h2>About</h2>
+      <p>
+        Lovely Piano Pieces is a small library of original piano music. Each piece begins
+        as a feeling, becomes a melody, and ends up as a score you can play at home.
+        Listen freely on YouTube. If a piece stays with you, the sheet music is here.
+      </p>
+    </div>
+  </section>
+
+  <footer id="contact" class="site-footer">
+    <div class="container footer-inner">
+      <span>&copy; <span id="year"></span> Lovely Piano Pieces</span>
+      <span>Scores delivered instantly via Gumroad</span>
+    </div>
+  </footer>
+
+  <script src="pieces.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
