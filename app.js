@@ -35,29 +35,42 @@
       length: escapeHtml(p.length),
       price: escapeHtml(p.price),
       description: escapeHtml(p.description),
-      youtube: encodeURI(p.youtube),
-      gumroad: encodeURI(p.gumroad),
-      coverColor: escapeHtml(p.coverColor),
-      coverInitial: escapeHtml(p.coverInitial)
+      audio: encodeURI(p.audio),
+      thumbnail: escapeHtml(p.thumbnail),
+      youtubeId: encodeURIComponent(p.youtubeId || ""),
+      gumroad: encodeURI(p.gumroad)
     };
+
+    // The cover art stays visible the whole time.
+    // The visitor plays the piece via a native HTML5 audio player below it —
+    // no iframe, no Content ID issues, no leaving the site.
+    const youtubeFallback = p.youtubeId
+      ? `<a class="watch-link" href="https://www.youtube.com/watch?v=${safe.youtubeId}" target="_blank" rel="noopener">
+           Or watch on YouTube &rarr;
+         </a>`
+      : "";
 
     return `
       <article class="piece-card">
-        <div class="piece-cover" style="background: ${safe.coverColor};">
-          <span>${safe.coverInitial}</span>
+        <div class="piece-cover">
+          <img class="piece-thumb" src="${safe.thumbnail}" alt="${safe.title} cover art" loading="lazy" />
         </div>
         <div class="piece-body">
           <h3 class="piece-title">${safe.title}</h3>
-          <p class="piece-meta">${safe.mood} &middot; ${safe.difficulty} &middot; ${safe.length}</p>
+          <p class="piece-meta">${safe.mood} &middot; ${safe.difficulty}</p>
           <p class="piece-desc">${safe.description}</p>
+          <audio class="piece-audio" controls preload="metadata" src="${safe.audio}">
+            Your browser does not support the audio element.
+            <a href="${safe.audio}">Download the MP3.</a>
+          </audio>
           <div class="piece-actions">
-            <a class="btn btn-youtube" href="${safe.youtube}" target="_blank" rel="noopener">
-              <span class="yt-dot" aria-hidden="true"></span>
-              Listen on YouTube
-            </a>
             <a class="btn btn-primary" href="${safe.gumroad}" target="_blank" rel="noopener">
-              Buy score &middot; ${safe.price}
+              ${typeof BETA !== "undefined" && BETA
+                ? `<span class="btn-main">Get score free</span>
+                   <span class="btn-tag">Beta &middot; normally <s>${safe.price}</s></span>`
+                : `Buy score &middot; ${safe.price}`}
             </a>
+            ${youtubeFallback}
           </div>
         </div>
       </article>
