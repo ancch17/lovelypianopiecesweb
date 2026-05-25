@@ -42,8 +42,9 @@
     };
 
     // The cover art stays visible the whole time.
-    // The visitor plays the piece via a native HTML5 audio player below it —
-    // no iframe, no Content ID issues, no leaving the site.
+    // The visitor previews the piece via a native HTML5 audio player —
+    // download menu item and right-click are disabled because the MP3
+    // is a paid product on Gumroad. See memory: lpp-no-mp3-download.
     const youtubeFallback = p.youtubeId
       ? `<a class="watch-link" href="https://www.youtube.com/watch?v=${safe.youtubeId}" target="_blank" rel="noopener">
            Or watch on YouTube &rarr;
@@ -59,9 +60,8 @@
           <h3 class="piece-title">${safe.title}</h3>
           <p class="piece-meta">${safe.mood} &middot; ${safe.difficulty}</p>
           <p class="piece-desc">${safe.description}</p>
-          <audio class="piece-audio" controls preload="metadata" src="${safe.audio}">
-            Your browser does not support the audio element.
-            <a href="${safe.audio}">Download the MP3.</a>
+          <audio class="piece-audio" controls controlsList="nodownload" oncontextmenu="return false;" preload="metadata" src="${safe.audio}">
+            Your browser does not support the audio element. Please use a modern browser to preview this piece.
           </audio>
           <div class="piece-actions">
             <a class="btn btn-primary" href="${safe.gumroad}" target="_blank" rel="noopener">
