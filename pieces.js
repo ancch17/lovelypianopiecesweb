@@ -20,6 +20,17 @@ const BETA = false;
 
 const PIECES = [
   {
+    title: "Whiskey and Rain",
+    mood: "Blues",
+    length: "3:27",
+    price: "SGD$5",
+    description: "An original piano piece — slow blues with a heartbeat, unhurried and honest.",
+    audio: "audio/whiskey-and-rain.mp3",
+    thumbnail: "images/whiskey-and-rain.png",
+    youtubeId: "jRH_4xtNK4s",
+    gumroad: "https://aceduworks.gumroad.com/l/jqhbjg"
+  },
+  {
     title: "Silver Nocturne",
     mood: "Classical",
     length: "2:14",
