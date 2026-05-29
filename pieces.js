@@ -20,6 +20,17 @@ const BETA = false;
 
 const PIECES = [
   {
+    title: "Havana Rain Falls",
+    mood: "Latin Jazz",
+    length: "3:08",
+    price: "SGD$5",
+    description: "An original piano piece — a vibrant Latin Jazz instrumental with soulful Cuban rhythms, warm phrasing, and a sun-soaked, tropical-evening mood.",
+    audio: "audio/latin-jazz-havana-rain-falls.mp3",
+    thumbnail: "images/havana-rain-falls-7-4.png",
+    youtubeId: "y1qFKbcy5Ts",
+    gumroad: "https://aceduworks.gumroad.com/l/xsefl"
+  },
+  {
     title: "Whiskey and Rain",
     mood: "Blues",
     length: "3:27",
