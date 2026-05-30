@@ -1,4 +1,4 @@
-/* Lovely Piano Pieces — elegant minimal */
+/* Lovely Piano Pieces - elegant minimal */
 
 :root {
   --bg: #fafaf7;
@@ -193,17 +193,66 @@ a:hover { color: var(--ink); }
   display: block;
 }
 
-.piece-audio {
+/* Click-to-play YouTube */
+
+.play-overlay {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  margin: 0 0 16px;
-  display: block;
-  /* Subtle visual integration with the card */
-  border-radius: var(--radius);
+  height: 100%;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.15);
+  transition: background 0.2s ease;
 }
 
-.piece-audio:focus-visible {
-  outline: 2px solid var(--ink-faint);
-  outline-offset: 2px;
+.play-overlay:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.play-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(204, 0, 0, 0.92);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  position: relative;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.play-overlay:hover .play-icon {
+  transform: scale(1.08);
+  background: #c00;
+}
+
+.play-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  border-style: solid;
+  border-width: 11px 0 11px 19px;
+  border-color: transparent transparent transparent #fff;
+}
+
+.play-overlay:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: -3px;
+}
+
+.piece-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
 }
 
 .piece-body {
@@ -373,4 +422,4 @@ a:hover { color: var(--ink); }
   .filters { width: 100%; }
   .filters label { flex: 1; }
   .filters select { width: 100%; }
-  }
+}
