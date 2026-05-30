@@ -20,6 +20,15 @@ const BETA = false;
 
 const PIECES = [
   {
+    title: "Slow River Blues",
+    mood: "Blues",
+    length: "3:03",
+    price: "SGD$5",
+    description: "An original piano piece — a slow blues instrumental with soulful, late-night phrasing and a heartfelt, reflective mood.",
+    youtubeId: "9AFjOqdJbxg",
+    gumroad: "https://aceduworks.gumroad.com/l/slow-river-blues",
+  },
+  {
         title: "Morning Grace Falls",
         mood: "Gospel",
         length: "3:19",
