@@ -33,40 +33,47 @@
       length: escapeHtml(p.length),
       price: escapeHtml(p.price),
       description: escapeHtml(p.description),
-      audio: encodeURI(p.audio),
       thumbnail: escapeHtml(p.thumbnail),
       youtubeId: encodeURIComponent(p.youtubeId || ""),
       gumroad: encodeURI(p.gumroad)
     };
 
-    // The cover art stays visible the whole time.
-    // The visitor previews the piece via a native HTML5 audio player —
-    // download menu item and right-click are disabled because the MP3
-    // is a paid product on Gumroad. See memory: lpp-no-mp3-download.
-    const youtubeFallback = p.youtubeId
-      ? `<a class="watch-link" href="https://www.youtube.com/watch?v=${safe.youtubeId}" target="_blank" rel="noopener">
-           Or watch on YouTube &rarr;
-         </a>`
+    // The cover art stays visible until the visitor clicks Play.
+    // Clicking swaps the thumbnail for an embedded YouTube iframe that
+    // plays in place (click-to-play keeps the page fast — the iframe
+    // only loads on demand). The YouTube embed is the only preview;
+    // the MP3 is a paid product on Gumroad and is not exposed here.
+    const playButton = p.youtubeId
+      ? `<button class="play-overlay" data-youtube="${safe.youtubeId}" aria-label="Play ${safe.title} on YouTube">
+           <span class="play-icon" aria-hidden="true"></span>
+         </button>`
       : "";
+
+    // Cover art comes straight from YouTube's auto-generated thumbnail
+    // (the 16:9 artwork from the uploaded 2K video) — no separate image
+    // upload needed. Falls back to hqdefault if maxresdefault is missing,
+    // then to any local thumbnail field for legacy entries.
+    const coverImg = p.youtubeId
+      ? `<img class="piece-thumb" src="https://img.youtube.com/vi/${safe.youtubeId}/maxresdefault.jpg"
+             alt="${safe.title} cover art" loading="lazy"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${safe.youtubeId}/hqdefault.jpg';" />`
+      : `<img class="piece-thumb" src="${safe.thumbnail}" alt="${safe.title} cover art" loading="lazy" />`;
 
     return `
       <article class="piece-card">
         <div class="piece-cover">
-          <img class="piece-thumb" src="${safe.thumbnail}" alt="${safe.title} cover art" loading="lazy" />
+          ${coverImg}
+          ${playButton}
         </div>
         <div class="piece-body">
           <h3 class="piece-title">${safe.title}</h3>
           <p class="piece-meta">${safe.mood}</p>
           <p class="piece-desc">${safe.description}</p>
-          <audio class="piece-audio" controls controlsList="nodownload" oncontextmenu="return false;" preload="metadata" src="${safe.audio}">
-            Your browser does not support the audio element. Please use a modern browser to preview this piece.
-          </audio>
           <div class="piece-actions">
             <a class="btn btn-primary" href="${safe.gumroad}" target="_blank" rel="noopener">
               <span class="btn-main">Buy MP3 + WAV</span>
               <span class="btn-tag">${safe.price}</span>
             </a>
-            ${youtubeFallback}
           </div>
         </div>
       </article>
@@ -90,6 +97,24 @@
   }
 
   moodSelect.addEventListener("change", render);
+
+  // Click-to-play: swap the cover thumbnail for an embedded YouTube
+  // player that autoplays in place.
+  grid.addEventListener("click", function (e) {
+    const btn = e.target.closest(".play-overlay");
+    if (!btn) return;
+    const id = btn.getAttribute("data-youtube");
+    if (!id) return;
+    const cover = btn.closest(".piece-cover");
+    if (!cover) return;
+    cover.innerHTML =
+      '<iframe class="piece-video" ' +
+      'src="https://www.youtube.com/embed/' + id +
+      '?autoplay=1&rel=0&modestbranding=1" ' +
+      'title="YouTube video player" frameborder="0" ' +
+      'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+      'allowfullscreen></iframe>';
+  });
 
   render();
 })();
