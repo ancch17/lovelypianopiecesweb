@@ -20,6 +20,15 @@ const BETA = false;
 
 const PIECES = [
   {
+        title: "Open Hands",
+        mood: "Gospel",
+        length: "2:30",
+        price: "SGD$5",
+        description: "An original piano piece — warm, uplifting, and rooted in the quiet reverence of Sunday morning worship.",
+        youtubeId: "2CPHkwcPRuU",
+        gumroad: "https://aceduworks.gumroad.com/l/open-hands",
+  },
+  {
     title: "Slow River Blues",
     mood: "Blues",
     length: "3:03",
